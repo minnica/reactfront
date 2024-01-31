@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.purple-white {
+  background-color: #3c3365; 
+  color: white
+}
+
+.card-custom {
+  width: 35rem
+}
