@@ -1,65 +1,64 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const URI = 'http://localhost:8000/ingresos/'
+const URI = 'http://localhost:8000/transactions/'
 
-const CompEditBlog = () => {
-  const [ingreso, setIngreso] = useState('')
-  const [realizado, setRealizado] = useState('')
-  const [fecha, setFecha] = useState('')
-  const [descripcion, setDescripcion] = useState('')
-  const [categoria, setCategoria] = useState('')
-  const [cuenta, setCuenta] = useState('')
-  const [anexo, setAnexo] = useState('')
+const CompEditRevenue = () => {
+  const [bankId, setBankId] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [amount, setAmount] = useState('')
+  const [done, setDone] = useState('')
+  const [date, setDate] = useState('')
+  const [description, setDescription] = useState('')
+  const [attached, setAttached] = useState('')
   const navigate = useNavigate()
   const { id } = useParams()
 
-  // procedimiento para actualizar
   const update = async (e) => {
     e.preventDefault()
     await axios.put(URI + id, {
-      ingreso: ingreso,
-      realizado: realizado,
-      fecha: fecha,
-      descripcion: descripcion,
-      categoria: categoria,
-      cuenta: cuenta,
-      anexo: anexo,
+      bank_id: bankId,
+      category_id: categoryId,
+      amount: amount,
+      done: done,
+      date: date,
+      description: description,
+      attached: attached,
     })
-    navigate('/ingreso')
+    navigate('/revenues')
   }
 
   useEffect(() => {
-    getBlogById()
+    getRevenueById()
   }, [])
 
-  const getBlogById = async () => {
+  const getRevenueById = async () => {
     const res = await axios.get(URI + id)
-    setIngreso(res.data.ingreso)
-    setRealizado(res.data.realizado)
-    setFecha(res.data.fecha)
-    setDescripcion(res.data.descripcion)
-    setCategoria(res.data.categoria)
-    setCuenta(res.data.cuenta)
-    setAnexo(res.data.anexo)
+    setBankId(res.data.bank_id)
+    setCategoryId(res.data.category_id)
+    setAmount(res.data.amount)
+    setDone(res.data.done)
+    setDate(res.data.date)
+    setDescription(res.data.description)
+    setAttached(res.data.attached)
   }
 
   return (
     <div className="container d-flex justify-content-center">
       <div className="card card-custom mt-5">
-        <div class="card-header bg-success text-white text-center h3">Nuevo ingreso</div>
+        <div class="card-header bg-success text-white text-center h3">
+          Nuevo ingreso
+        </div>
         <form onSubmit={update}>
-
           <div class="card-body">
-
             <div className="mb-3">
-              <label for="cantidadGasto" className="form-label h5"
-              >Cantidad de ingresos</label
-              >
+              <label for="cantidadGasto" className="form-label h5">
+                Cantidad de ingresos
+              </label>
               <input
-                value={ingreso}
-                onChange={(e) => setIngreso(e.target.value)}
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 type="number"
                 className="form-control-plaintext form-control text-success"
                 id="cantidadGasto"
@@ -74,14 +73,15 @@ const CompEditBlog = () => {
               <div className="col-10">
                 <div class="form-floating">
                   <select
-                    value={realizado}
-                    onChange={(e) => setRealizado(e.target.value)}
+                    value={done}
+                    onChange={(e) => setDone(e.target.value)}
                     class="form-select"
                     id="floatingSelect"
-                    aria-label="Floating label select example">
+                    aria-label="Floating label select example"
+                  >
                     <option selected>Selecciona una opción</option>
-                    <option value="SI">SI</option>
-                    <option value="NO">NO</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
                   </select>
                   <label for="floatingSelect">Realizado</label>
                 </div>
@@ -94,8 +94,8 @@ const CompEditBlog = () => {
               </div>
               <div className="col-10">
                 <input
-                  value={fecha}
-                  onChange={(e) => setFecha(e.target.value)}
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
                   type="date"
                   className="form-control"
                 />
@@ -108,8 +108,8 @@ const CompEditBlog = () => {
               </div>
               <div className="col-10">
                 <input
-                  value={descripcion}
-                  onChange={(e) => setDescripcion(e.target.value)}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   type="text"
                   className="form-control-plaintext"
                   placeholder="Descripción"
@@ -124,20 +124,18 @@ const CompEditBlog = () => {
               <div className="col-10">
                 <div class="form-floating">
                   <select
-                    value={categoria}
-                    onChange={(e) => setCategoria(e.target.value)}
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)}
                     class="form-select"
                     id="floatingSelect"
-                    aria-label="Floating label select example">
+                    aria-label="Floating label select example"
+                  >
                     <option selected>Selecciona una opción</option>
-                    <option value="Entretenimiento">Entretenimiento</option>
-                    <option value="Comida">Comida</option>
-                    <option value="Viaje">Viaje</option>
-                    <option value="Servicios">Servicios</option>
+                    <option value="3">Devoluión prestamo</option>
+                    <option value="4">Nómina</option>
                   </select>
                   <label for="floatingSelect">Categoria</label>
                 </div>
-
               </div>
             </div>
             <hr />
@@ -148,16 +146,14 @@ const CompEditBlog = () => {
               <div className="col-10">
                 <div class="form-floating">
                   <select
-                    value={cuenta}
-                    onChange={(e) => setCuenta(e.target.value)}
+                    value={bankId}
+                    onChange={(e) => setBankId(e.target.value)}
                     class="form-select"
                     id="floatingSelect"
-                    aria-label="Floating label select example">
+                    aria-label="Floating label select example"
+                  >
                     <option selected>Selecciona una opción</option>
-                    <option value="BBVA">BBVA</option>
-                    <option value="Santander">Santander</option>
-                    <option value="CitiBanamex">CitiBanamex</option>
-                    <option value="Cartera">Cartera</option>
+                    <option value="3">HSBC</option>
                   </select>
                   <label for="floatingSelect">Cuenta</label>
                 </div>
@@ -170,8 +166,8 @@ const CompEditBlog = () => {
               </div>
               <div className="col-10">
                 <input
-                  value={anexo}
-                  onChange={(e) => setAnexo(e.target.value)}
+                  value={attached}
+                  onChange={(e) => setAttached(e.target.value)}
                   type="text"
                   className="form-control-plaintext"
                   placeholder="Anexo"
@@ -180,15 +176,14 @@ const CompEditBlog = () => {
             </div>
           </div>
           <div className="card-footer d-flex justify-content-center">
-            <button type="submit" className="border border-0 btn"><i className="fa-solid fa-circle-check fa-4x text-success"></i></button>
+            <button type="submit" className="border border-0 btn">
+              <i className="fa-solid fa-circle-check fa-4x text-success"></i>
+            </button>
           </div>
         </form>
-
       </div>
-
     </div>
   )
-
 }
 
-export default CompEditBlog
+export default CompEditRevenue

@@ -1,11 +1,11 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 // importamos los componentes
-import CompShowBlogs from './blog/ShowBlogs';
-import CompCreateBlog from './blog/CreateBlog';
-import CompEditBlog from './blog/EditBlog';
-import CompShowDashboard from './blog/DashBoard';
+import CompShowRevenues from './transactions/showRevenues';
+import CompCreateRevenue from './transactions/createRevenue';
+import CompEditRevenue from './transactions/editRevenue';
+import CompShowDashboard from './transactions/DashBoard';
 
 // importamos el router
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -16,7 +16,7 @@ function App() {
       <nav className="navbar purple-white">
         <div className="container-fluid d-flex justify-content-around">
           <a className="nav-link" href="/">Principal</a>
-          <a className="nav-link" aria-current="page" href="#">Transacciones</a>
+          <a className="nav-link" aria-current="page" href="/revenues">Ingresos</a>
           <div className="dropdown">
             <i
               className="fa-solid fa-3x fa-circle-plus nav-color"
@@ -27,6 +27,7 @@ function App() {
             <ul className="dropdown-menu">
               <li>
                 <a
+                  href='/'
                   className="dropdown-item"
                   data-bs-toggle="modal"
                   data-bs-target="#modalTraspasos"
@@ -38,13 +39,14 @@ function App() {
                   className="dropdown-item"
                   // data-bs-toggle="modal"
                   // data-bs-target="#modalIngresos"
-                  href='/ingreso'
+                  href='/create-revenue'
                 >Ingreso</a
                 >
               </li>
-              <li><a className="dropdown-item" href="#">Gasto con tarjeta</a></li>
+              <li><a className="dropdown-item" href="/">Gasto con tarjeta</a></li>
               <li>
                 <a
+                  href='/'
                   className="dropdown-item"
                   data-bs-toggle="modal"
                   data-bs-target="#modalGastos"
@@ -53,8 +55,8 @@ function App() {
               </li>
             </ul>
           </div>
-          <a className="nav-link" href="#">Planificación</a>
-          <a className="nav-link" href="#">Más</a>
+          <a className="nav-link" href="/">Planificación</a>
+          <a className="nav-link" href="/">Más</a>
         </div>
       </nav>
 
@@ -433,9 +435,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<CompShowDashboard></CompShowDashboard>}></Route>
-          <Route path='/ingreso' element={<CompShowBlogs></CompShowBlogs>}></Route>
-          <Route path='/create' element={<CompCreateBlog></CompCreateBlog>}></Route>
-          <Route path='/edit/:id' element={<CompEditBlog></CompEditBlog>}></Route>
+          <Route path='/revenues' element={<CompShowRevenues></CompShowRevenues>}></Route>
+          <Route path='/create-revenue' element={<CompCreateRevenue></CompCreateRevenue>}></Route>
+          <Route path='/edit-revenue/:id' element={<CompEditRevenue></CompEditRevenue>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
