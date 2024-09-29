@@ -10,6 +10,7 @@ import CompEditBlog from './blog/EditBlog';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
+  console.log("test");
   return (
     <div className="App">
       <header className="App-header">
